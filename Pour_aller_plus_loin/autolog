@@ -1,0 +1,17 @@
+#!/bin/bash
+url="https://alcasar.laplateforme.io/intercept.php?res=notyet&uamip=10.10.0.1&uamport=3990&challenge=a5703f7a5d6852ee8a744b9f20b259ae&called=68-05-CA-3A-2E-49&mac=74-8F-3C-BC-59-04&ip=10.10.49.5&nasid=alcasar.laplateforme.io&sessionid=166549752500000188&ssl=https%3a%2f%2f1.0.0.1%3a3991%2f&userurl=http%3a%2f%2fcacerts.digicert.com%2fGeoTrustGlobalTLSRSA4096SHA2562022CA1.crt&md=42F1257AEF7F5524B2376D6442D48D0C"
+
+
+cookie="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzZWNyZXQiOiJVVGo1SVVWRnB3bUpLR2RRamM1Z3pXU0JpSEdzYlpndFladUZmNDJ6RXdOczQ5Z3BQUkhBdk9uU1hKbE1GSE9FS2FXMVJzQ3ZhUUM4aEFlTFdHYzF0dXJEOXduZmswM2hxNVVBY3JEYXk5cW84eHE2ZGttSVk2aWpUMk5EazdCViJ9.bFIoYUWM04xXGmXTciWwnbXOwb1d0mbL51DN2f8Os3I"
+
+ip="10.10.54.32"
+
+################################################################################################################################################################################################################
+
+chal=`curl $url | grep "challenge" | awk '{print $4}' | awk '{print $2}' FS='"'`
+
+echo """"""""""""""""""""""""""""""""""""""""""""
+echo "challenge=$chal"
+echo """"""""""""""""""""""""""""""""""""""""""""
+
+curl -c $cookie -d "username=$1" -d "password=$2" -d "challenge=$chal$" -L $url
